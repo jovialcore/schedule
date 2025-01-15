@@ -12,8 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create(('events_participants'), function (Blueprint $table) {
+            
             $table->id();
-            $table->unsignedInteger('event_id');
+
+            $table->unsignedBigInteger('event_id');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
