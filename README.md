@@ -1,4 +1,4 @@
-![tests reuslts](image.png)
+![tests reuslts](image-1.png)
 
 ## This is a summary of what the project is structured
  
