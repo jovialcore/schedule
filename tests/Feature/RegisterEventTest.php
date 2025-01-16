@@ -81,15 +81,33 @@ class RegisterEventTest extends TestCase
             'end_at' => now()->copy()->addDay(),
         ])->participants()->attach($newUser->id);
 
-        
+
         $response = $this->postJson(route('events.register', $event->id), [
             'user_id' => $newUser->id,
         ]);
 
         $response->assertStatus(Response::HTTP_OK)
-        ->assertJsonFragment(['status' => 500])
+            ->assertJsonFragment(['status' => 500])
             ->assertJson([
                 'message' => 'You have an event that is overlapping with the event you want to attend'
             ]);
+    }
+
+    public function test_that_user_can_see_an_event()
+    {
+        $event = Event::factory()->create();
+
+        $this->getJson(route('events.show', $event->id))
+            ->assertStatus(Response::HTTP_OK)
+            ->assertJsonFragment(['status' => 200]);
+    }
+
+    public function test_that_user_can_see_all_events()
+    {
+        Event::factory()->count(5)->create();
+
+        $this->getJson(route('events.all'))
+            ->assertStatus(Response::HTTP_OK)
+            ->assertJsonFragment(['status' => 200]);
     }
 }
