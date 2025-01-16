@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Event;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,11 +19,23 @@ class EventFactory extends Factory
     public function definition(): array
     {
         return [
-            'event name ' => $this->faker->name,
-            'start_at' => $this->faker->dateTime,
-            'end_at' => $this->faker->dateTime,
-            'owner_id' => $this->faker->numberBetween(1, 10),
-            'max_num_of_participants' => $this->faker->numberBetween(1, 10),
+            'name' => $this->faker->name,
+            'start_at' => $this->faker->dateTimeBetween('now', '+1 month'),
+            'end_at' => $this->faker->dateTimeBetween('+1 month', '+2 months'),
+            'owner_id' => User::factory(),
+            'max_num_of_participants' => 10,
         ];
     }
+
+
+    public function withParticipants(int $count = 0)
+    {
+        return $this->afterCreating(function (Event $event) use ($count) {
+            if ($count > 0) {
+                $users = User::factory()->count($count)->create();
+                $event->participants()->attach($users->pluck('id'));
+            }
+        });
+    }
+
 }

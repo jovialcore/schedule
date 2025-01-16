@@ -19,10 +19,18 @@ class Event extends Model
         'owner_id',
     ];
 
+    protected function casts() : array 
+    {
+        return [
+            'start_at' => 'date',
+            'end_at' => 'date'
+        ];
+    }
+
 
     public function participants()
     {
-        return $this->belongsToMany(User::class, 'event_participants' ,'event_id');
+        return $this->belongsToMany(User::class, 'events_participants' ,'event_id');
     }
 
     public function owner()
