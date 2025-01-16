@@ -1,14 +1,17 @@
 ![tests reuslts](image-1.png)
 
-## This is a summary of what the project is structured
- 
-- We have a controller to prepare data that can be used on the client and service class to wrap our logic
-- Wrote feature tests to cover the necessary cases. 
-- We are wrapping our FE data with resource
 
+## Project Structure Overview
 
+- We use a **controller** to prepare data for the client and a **service class** to encapsulate our business logic.
+- Feature tests have been written to cover all essential scenarios.
+- Frontend data is wrapped using **resource classes** for consistency.
 
-#### To run the project. 
-- Run composer install
-- I wrote tests cases (tests/feature/RegisterEventTest.php) so you just run "php artisan test" to see all the scenerios highlited in the docs. 
+---
 
+## Running the Project
+
+1. Run `composer install` to set up dependencies.
+2. To verify functionality, execute the tests located at `tests/Feature/RegisterEventTest.php` by running:
+   ```bash
+   php artisan test
